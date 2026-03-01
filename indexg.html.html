@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Midnight Love Hospital 💜</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    background-size:300% 300%;
+    animation:bgShift 12s ease infinite;
+    color:#fff;
+}
+
+@keyframes bgShift{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* Floating Hearts */
+.hearts{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    pointer-events:none;
+    z-index:-1;
+}
+
+.heart{
+    position:absolute;
+    bottom:-40px;
+    opacity:0.6;
+    animation:floatUp linear forwards;
+}
+
+@keyframes floatUp{
+    0%{transform:translateY(0);}
+    100%{transform:translateY(-110vh);opacity:0;}
+}
+
+/* Sections */
+.section{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:30px 15px;
+}
+
+.hidden{display:none;}
+
+.glass{
+    width:100%;
+    max-width:400px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.1);
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.4);
+    margin-top:20px;
+    text-align:center;
+}
+
+input{
+    width:100%;
+    padding:14px 0;
+    margin:12px 0;
+    border:none;
+    border-radius:12px;
+    background:rgba(255,255,255,0.1);
+    color:#fff;
+    font-size:14px;
+    text-align:center;
+}
+
+input::placeholder{
+    text-align:center;
+    color:#ddd;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    margin-top:15px;
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+.planCard{
+    margin-top:20px;
+    padding:20px;
+    border-radius:18px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.1);
+    text-align:center;
+}
+
+.loader{
+    border:5px solid rgba(255,255,255,0.2);
+    border-top:5px solid #00ffae;
+    border-radius:50%;
+    width:50px;
+    height:50px;
+    margin:20px auto;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    100%{transform:rotate(360deg);}
+}
+
+.tick{
+    font-size:60px;
+    color:#00ffae;
+}
+
+.loveText{
+    color:#ff69b4;
+    font-weight:bold;
+    margin-bottom:10px;
+    font-size:18px;
+}
+
+</style>
+
+<script>
+
+let selectedPlan="";
+let bookingID="";
+let enteredPhone="";
+
+function startTreatment(){
+    let name=document.getElementById("name").value.trim();
+    enteredPhone=document.getElementById("phone").value.trim();
+
+    if(name===""){
+        alert("Enter your name 💜");
+        return;
+    }
+
+    if(enteredPhone===""){
+        alert("Enter phone number 📱");
+        return;
+    }
+
+    document.getElementById("page1").classList.add("hidden");
+    document.getElementById("page2").classList.remove("hidden");
+}
+
+function choosePlan(plan){
+    selectedPlan=plan;
+
+    document.getElementById("page2").classList.add("hidden");
+    document.getElementById("page3").classList.remove("hidden");
+
+    document.getElementById("loadingBox").style.display="block";
+    document.getElementById("successBox").style.display="none";
+
+    setTimeout(()=>{
+
+        bookingID="LH"+Math.floor(Math.random()*100000);
+
+        document.getElementById("selectedPlan").innerText=selectedPlan;
+        document.getElementById("bookingID").innerText="Booking ID: "+bookingID;
+
+        if(enteredPhone === "7358923366"){
+            document.getElementById("loveMessage").innerText=
+            "💜 I Love U Buttu 💜 Coming to Relax 😘";
+        }else{
+            document.getElementById("loveMessage").innerText="";
+        }
+
+        document.getElementById("loadingBox").style.display="none";
+        document.getElementById("successBox").style.display="block";
+
+    },3000);
+}
+
+/* Floating Hearts */
+function createHeart(){
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="💜";
+    heart.style.left=Math.random()*100+"%";
+    heart.style.fontSize=(14+Math.random()*25)+"px";
+    heart.style.animationDuration=(4+Math.random()*4)+"s";
+    document.querySelector(".hearts").appendChild(heart);
+    setTimeout(()=>heart.remove(),9000);
+}
+setInterval(createHeart,400);
+
+</script>
+
+</head>
+
+<body>
+
+<div class="hearts"></div>
+
+<!-- PAGE 1 -->
+<div id="page1" class="section">
+    <h1>🏥 Midnight Love Hospital</h1>
+    <div class="glass">
+        <input type="text" id="name" placeholder="Enter Your Name">
+        <input type="tel" id="phone" placeholder="Enter Your Phone Number">
+        <button onclick="startTreatment()">Start Treatment</button>
+    </div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="section hidden">
+    <h2>Choose Recovery Plan</h2>
+
+    <div class="glass planCard">
+        <h3>Basic Plan 💙</h3><br>
+        🥰 Soft Hug Therapy<br><br>
+        😘 Sweet Lip Kiss<br><br>
+        😊 Stress -40%<br><br>
+        <button onclick="choosePlan('Basic Plan 💙')">Start Therapy</button>
+    </div>
+
+    <div class="glass planCard">
+        <h3>Premium Plan 💜</h3><br>
+        🤗 Tight Romantic Hug<br><br>
+        💋 Deep Lip Lock<br><br>
+        😊 Stress -65%<br><br>
+        <button onclick="choosePlan('Premium Plan 💜')">Start Therapy</button>
+    </div>
+
+    <div class="glass planCard">
+        <h3>Lifetime Love Plan ❤️</h3><br>
+        🔥 Unlimited Passion Hug<br><br>
+        💖 Endless Kiss Therapy<br><br>
+        😊 Stress -100%<br><br>
+        <button onclick="choosePlan('Lifetime Love Plan ❤️')">Start Therapy</button>
+    </div>
+</div>
+
+<!-- PAGE 3 -->
+<div id="page3" class="section hidden">
+    <div class="glass">
+
+        <div id="loadingBox">
+            <h2>Processing Booking...</h2>
+            <div class="loader"></div>
+            <p>Please wait 💜</p>
+        </div>
+
+        <div id="successBox" style="display:none;">
+            <div class="tick">✔</div>
+            <h2>Booking Confirmed</h2>
+            <p id="loveMessage" class="loveText"></p>
+            <p id="selectedPlan"></p>
+            <p id="bookingID"></p>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
